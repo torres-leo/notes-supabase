@@ -1,0 +1,14 @@
+.header {
+	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid rgb(27, 27, 29);
+	margin-bottom: 1rem;
+
+	@media (width < 500px) {
+		flex-direction: column;
+		row-gap: 15px;
+		padding: 10px 0;
+	}
+}
