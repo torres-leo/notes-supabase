@@ -18,14 +18,7 @@ export async function addNote(formData: FormData) {
 		return;
 	}
 
-	let { data, error } = await supabase.from('notes').select('title').eq('title', [title]).single();
-	console.log(data);
-
-	if (data?.title) {
-		throw new Error('Title already exist');
-	}
-
-	await supabase.from('notes').insert([
+	const { data, error } = await supabase.from('notes').insert([
 		{
 			title,
 			content,
@@ -34,12 +27,12 @@ export async function addNote(formData: FormData) {
 	]);
 
 	if (error) {
-		console.error('Error inserting data', error);
-		return;
+		if (error.code === '23505') throw new Error('Title already exist');
+		throw new Error(error.message);
 	}
 
 	revalidatePath('/notes');
-	redirect('/notes');
+	// redirect('/notes');
 
-	// return { message: 'Success' };
+	return { message: 'Success' };
 }
