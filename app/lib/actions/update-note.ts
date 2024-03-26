@@ -1,9 +1,9 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
-export async function addNote(formData: FormData) {
+export async function updateNote(formData: FormData) {
+	const id = formData.get('id');
 	const title = formData.get('title');
 	const content = formData.get('content');
 
@@ -18,18 +18,17 @@ export async function addNote(formData: FormData) {
 		return;
 	}
 
-	const { data, error } = await supabase.from('notes').insert([
-		{
+	const { data, error } = await supabase
+		.from('notes')
+		.update({
 			title,
 			content,
-			userId: user.id,
-		},
-	]);
+		})
+		.match({ id, userId: user.id });
 
 	if (error) {
-		if (error.code === '23505') throw new Error('Title already exist');
-
-		throw new Error(error.message);
+		console.error('Error updating data', error);
+		return;
 	}
 
 	revalidatePath('/notes');

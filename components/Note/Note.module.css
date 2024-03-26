@@ -1,11 +1,11 @@
-.scrollbar {
+/* .scrollbar {
 	overflow-y: hidden;
 	scrollbar-gutter: stable;
 }
 
 .scrollbar:hover {
 	overflow-y: auto;
-}
+} */
 
 .scrollbar::-webkit-scrollbar {
 	width: 8px;
