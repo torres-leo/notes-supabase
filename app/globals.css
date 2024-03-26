@@ -1,3 +1,5 @@
+@import 'react-toastify/dist/ReactToastify.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,6 +51,7 @@
 		backdrop-filter: blur(2px);
 		transform: translateY(-25px);
 		padding: 5px 0;
+		width: 100%;
 	}
 }
 
